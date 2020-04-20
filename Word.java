@@ -1,15 +1,14 @@
 package com.company;
 
 public class Word {
-    private int length;
-    private int scoreTF;
-    private int scoreIDF;
+     int length;
+     int scoreTF;
+     int scoreIDF;
 
-    private String value;
+     String value;
     Word(String value)
     {
         this.value = value;
         this.length = value.length();
-
     }
 }
