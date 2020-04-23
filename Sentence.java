@@ -25,11 +25,8 @@ public class Sentence {
         this.noOfWords = 0;
         this.number = number;
 
-        for (int i = 0; i < sentenceLength; i++) {
-            if (value.charAt(i) == ' ')
-                noOfWords++;
-        }
-        noOfWords++;
+        this.noOfWords =  getNoOfWords();
+
         this.score = 0.0;
 
         words = new ArrayList<Word>();
@@ -58,7 +55,7 @@ public class Sentence {
     }
 
     void extractWordsFromSentence() {
-        String[] stop_words = { "a","able","about","after","all","also","am"," ",
+        String[] stop_words = { "a","able","about","after","all","also","am"," ","The",
                 "an","and","any","are","as","at","be","because","been","but","by","can","cannot","could","did",
                 "do","does","either","else","ever","every","for","from","get","got","had","has","have","he","her","hers","him","his","how","I",
                 "if","in","into","is","it","its","just","let","like","likely","may","me",
@@ -85,13 +82,28 @@ public class Sentence {
                 words.add(new Word(word[i]));
         }
     }
-
+    void scoreSentence()
+    {
+        for (Word myWord: words) {
+            score += myWord.scoreTFIDF;
+        }
+    }
     void printSentences() {
         for (Word word : words) {
-            System.out.print(word.value + " ");
+            System.out.print(word.value + " " );
         }
+        //System.out.println("Score is " + score);
 
     }
 
+    public int getNoOfWords() {
+        int noOfTempWords = 0;
+        for (int i = 0; i < sentenceLength; i++) {
+            if (value.charAt(i) == ' ')
+                noOfTempWords++;
+        }
+        noOfTempWords++;
+        return noOfTempWords;
+    }
 }
 

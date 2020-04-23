@@ -34,8 +34,8 @@ public class SummaryTool {
         noOfParagraphs = 0;
 
         try{
-            in = new FileInputStream("Clustering TST/Input/Sample.txt");
-            out = new FileOutputStream("Output.txt");
+            in = new FileInputStream("Documents/Input/Sample.txt");
+            out = new FileOutputStream("Documents/Output/Output.txt");
 
 
         } catch (FileNotFoundException e) {
@@ -106,9 +106,65 @@ public class SummaryTool {
     }
     void printSentences(){
         for(Sentence sentence : sentences){
-           // System.out.println(sentence.number + " => " + sentence.value + " => " + sentence.noOfWords + " => " + sentence.paragraphNumber);
+            // System.out.println(sentence.number + " => " + sentence.value + " => " + sentence.noOfWords + " => " + sentence.paragraphNumber);
             sentence.printSentences();
+            System.out.println("->" + sentence.score);
             System.out.println();
         }
+    }
+    public double tf(Sentence doc, String term) {
+        double result = 0;
+        for (Word myWord : doc.words) {
+            if (term.equalsIgnoreCase(myWord.value))
+                result++;
+        }
+        return result / (double) doc.getNoOfWords();
+    }
+
+    public double idf(Paragraph docs, String term) {
+        double n = 0;
+        for (Sentence doc : docs.sentences) {
+            for (Word myWord : doc.words) {
+                if (term.equalsIgnoreCase(myWord.value)) {
+                    n++;
+                    break;
+                }
+            }
+        }
+        return Math.log(docs.getTotalNoOfWords() / n);
+    }
+
+    public double tfIdf(Sentence doc, Paragraph docs, String term) {
+        return tf(doc, term) * idf(docs, term);
+
+    }
+
+    void scoreWords()
+    {
+        for (Paragraph myParagraph: paragraphs ) {
+            for (Sentence mySentence : sentences) {
+                for (Word myWord : mySentence.words) {
+
+                    myWord.scoreTFIDF = tfIdf(mySentence,myParagraph,myWord.value);
+
+                }
+                mySentence.scoreSentence();
+            }
+        }
+    }
+    void printScores()
+    {
+        for (Paragraph myParagraph: paragraphs ) {
+            for (Sentence mySentence : sentences) {
+                for (Word myWord : mySentence.words) {
+
+                    System.out.println(myWord.value + " -> " + myWord.scoreTFIDF);
+
+                }
+                System.out.println();
+
+            }
+        }
+
     }
 }
