@@ -1,14 +1,21 @@
 package com.company;
 
-public class Word {
-     int length;
-     int scoreTF;
-     int scoreIDF;
+import java.util.List;
 
-     String value;
+public class Word {
+    int length;
+    double scoreTFIDF;
+    ;
+
+    String value;
     Word(String value)
     {
         this.value = value;
         this.length = value.length();
+        this.scoreTFIDF = 0.0;
+
     }
+
+
+
 }
