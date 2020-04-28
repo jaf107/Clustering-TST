@@ -6,16 +6,20 @@ public class Main {
         SummaryTool summary = new SummaryTool();
 
         summary.init();
-        //summary.extractContentFromContext();
+
         summary.extractSentenceFromContext();
         summary.groupSentencesIntoParagraphs();
 
-        //summary.tokenization();
-        //summary.printContent();
-        summary.printSentences();
-        summary.scoreWords();
-        //summary.printScores();
 
+//        summary.printContent();
+//        summary.printSentences();
+        summary.scoreWords();
+        summary.scoreSentences();
+        summary.printScoresOfWords();
+
+//        summary.createSummary();
+        summary.printSentences();
+//        summary.printScoresOfWords();`
     }
 
 }
