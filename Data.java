@@ -9,6 +9,11 @@ public class Data {
 
     }
 
+    Data(double v)
+    {
+        this.value = v;
+        this.clusterNumber = 0;
+    }
     Data(double v,int n)
     {
         this.clusterNumber = n;
